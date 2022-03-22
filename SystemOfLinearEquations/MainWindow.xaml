@@ -1,0 +1,107 @@
+﻿<Window x:Class="SystemOfLinearEquations.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SystemOfLinearEquations"
+        mc:Ignorable="d"
+        Title="Решение систем линейных алгебраических уравнений" Height="450" Width="800" MinWidth="800" MinHeight="450" Closing="Window_Closing">
+    <Grid Background="WhiteSmoke">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="42"></RowDefinition>
+            <RowDefinition Height="23"></RowDefinition>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="101"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3">
+            <StackPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFB9B9B9" Offset="1"/>
+                    <GradientStop Color="White" Offset="0.97"/>
+                    <GradientStop Color="#FFF0F0F0"/>
+                    <GradientStop Color="#FFF0F0F0" Offset="0.969"/>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+            <Grid x:Name="topGrid" Height="42">
+                <Label x:Name="label3" Content="Label" HorizontalAlignment="Left" Margin="195,8,0,0" VerticalAlignment="Top" FontWeight="Bold" VerticalContentAlignment="Stretch" Foreground="Red" Visibility="Hidden"/>
+                <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="180" SelectedIndex="2" SelectionChanged="comboBox_SelectionChanged">
+                    <ComboBoxItem Content="Метод Гаусса"/>
+                    <ComboBoxItem Content="Метод Жордана-Гаусса"/>
+                    <ComboBoxItem Content="LU-разложение"/>
+                </ComboBox>
+                <Button x:Name="button" Content="Подробно" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="90" Height="22" Click="button_Click"/>
+                <Button x:Name="button1" Content="О" HorizontalAlignment="Right" Margin="0,10,110,0" VerticalAlignment="Top" Width="22" Height="22" Click="button1_Click" ToolTip="Очистить (Ctrl+Shift+D)"/>
+            </Grid>
+        </StackPanel>
+        <StackPanel x:Name="APanel" Grid.Column="0" Grid.Row="1" Height="23">
+            <StackPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFB9B9B9" Offset="1"/>
+                    <GradientStop Color="White" Offset="0.97"/>
+                    <GradientStop Color="#FFF0F0F0"/>
+                    <GradientStop Color="#FFF0F0F0" Offset="0.969"/>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+            <Grid Height="23">
+                <Label x:Name="label" Content="A" Margin="0,-9,0,0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Height="37"/>
+                <Rectangle Fill="#FFB9B9B9" Width="1" HorizontalAlignment="Right" Margin="0"/>
+            </Grid>
+        </StackPanel>
+        <StackPanel x:Name="BPanel" Grid.Column="1" Grid.Row="1" Height="23">
+            <StackPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFB9B9B9" Offset="1"/>
+                    <GradientStop Color="White" Offset="0.97"/>
+                    <GradientStop Color="#FFF0F0F0"/>
+                    <GradientStop Color="#FFF0F0F0" Offset="0.969"/>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+            <Grid Height="23">
+                <Label x:Name="label1" Content="B" Margin="0,-9,0,0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Height="37"/>
+                <Rectangle Fill="#FFB9B9B9" Width="1" HorizontalAlignment="Right" Margin="0"/>
+            </Grid>
+        </StackPanel>
+        <StackPanel x:Name="XPanel" Grid.Column="2" Grid.Row="1" Height="23">
+            <StackPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFB9B9B9" Offset="1"/>
+                    <GradientStop Color="White" Offset="0.97"/>
+                    <GradientStop Color="#FFF0F0F0"/>
+                    <GradientStop Color="#FFF0F0F0" Offset="0.969"/>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+            <Grid Height="23">
+                <Label x:Name="label2" Content="X" Margin="0,-9,0,0" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" Height="37"/>
+            </Grid>
+        </StackPanel>
+        <StackPanel x:Name="AtablePanel" Grid.Column="0" Grid.Row="2">
+            <Grid Height="{Binding ActualHeight, ElementName=AtablePanel, Mode=OneWay}">
+                <ScrollViewer x:Name="scrollViewer" Margin="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <Grid x:Name="AGrid">
+                        <Rectangle Fill="#FFB9B9B9" Width="1" HorizontalAlignment="Right" Margin="0"/>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </StackPanel>
+        <StackPanel x:Name="BtablePanel" Grid.Column="1" Grid.Row="2">
+            <Grid Height="{Binding ActualHeight, ElementName=BtablePanel, Mode=OneWay}">
+                <ScrollViewer Margin="0" VerticalScrollBarVisibility="Auto">
+                    <Grid x:Name="BGrid">
+                        <Rectangle Fill="#FFB9B9B9" Width="1" HorizontalAlignment="Right" Margin="0"/>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </StackPanel>
+        <StackPanel x:Name="XtablePanel" Grid.Column="2" Grid.Row="2">
+            <Grid Height="{Binding ActualHeight, ElementName=XtablePanel, Mode=OneWay}">
+                <ScrollViewer Margin="0" VerticalScrollBarVisibility="Auto">
+                    <Grid x:Name="XGrid"/>
+                </ScrollViewer>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>
